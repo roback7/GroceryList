@@ -25,12 +25,13 @@ namespace GroceryList.Controllers
         {
             Repository.Repository r = new Repository.Repository();
             r.addItem(id, item);
-
         }
 
-        // POST api/list/5
-        public void Post(int id, [FromBody]string value)
+        // POST api/list
+        public void Post(int id, string name)
         {
+            Repository.Repository r = new Repository.Repository();
+            r.addCustomer(id, name);
         }
 
         // DELETE api/list/5

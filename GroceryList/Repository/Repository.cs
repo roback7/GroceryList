@@ -27,7 +27,7 @@ namespace GroceryList.Repository
 
             cmd.Parameters.Add("customerID", DbType.Int32);
             cmd.Parameters["customerID"].Value = customerID;
-            cmd.CommandText = "SELECT * FROM LIST, CUSTOMER WHERE LIST.customerID = @customerID AND CUSTOMER.customerID = LIST.customerID";
+            cmd.CommandText = "SELECT * FROM LIST, CUSTOMER WHERE CUSTOMER.customerID = @customerID AND CUSTOMER.customerID = LIST.customerID";
 
             using (SQLiteDataReader read = cmd.ExecuteReader())
             {
@@ -65,6 +65,22 @@ namespace GroceryList.Repository
             connection.Close();
         }
 
-        public void 
+        public void addCustomer(int customerID, string name) {
+            SQLiteConnection connection = new SQLiteConnection(ConfigurationManager.ConnectionStrings["database"].ConnectionString);
+            connection.Open();
+
+            SQLiteCommand cmd = new SQLiteCommand();
+            cmd.Connection = connection;
+
+            cmd.Parameters.Add("customerID", DbType.Int32);
+            cmd.Parameters.Add("name", DbType.String);
+            cmd.Parameters["customerID"].Value = customerID;
+            cmd.Parameters["name"].Value = name;
+            cmd.CommandText = "INSERT INTO CUSTOMER VALUES(@customerID, @name)";
+
+            SQLiteDataReader read = cmd.ExecuteReader();
+            read.Close();
+            connection.Close();
+        }
     }
 }
