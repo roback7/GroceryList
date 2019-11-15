@@ -27,19 +27,27 @@ namespace GroceryList.Repository
 
             cmd.Parameters.Add("customerID", DbType.Int32);
             cmd.Parameters["customerID"].Value = customerID;
-            cmd.CommandText = "SELECT * FROM LIST WHERE LIST.customerID = @customerID";
+            cmd.CommandText = "SELECT * FROM LIST, CUSTOMER WHERE LIST.customerID = @customerID AND CUSTOMER.customerID = LIST.customerID";
 
-            SQLiteDataReader read = cmd.ExecuteReader();
-            DataTable dt = new DataTable();
-            dt.Load(read);
-
-            foreach (DataRow row in dt.Rows)
+            using (SQLiteDataReader read = cmd.ExecuteReader())
             {
-                groceryList.groceryList.Add(Convert.ToString(row["ITEM"]));
+                DataTable dt = new DataTable();
+                dt.Load(read);
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    groceryList.groceryList.Add(Convert.ToString(row["ITEM"]));
+                    groceryList.customerName = Convert.ToString(row["NAME"]);
+                }
+
+                read.Close();
             }
+            groceryList.customerID = customerID;
+            return groceryList;
+        }
 
-            read.Close();
-
+        public GList addItem(int customerID, string item) {
+            GList groceryList = new GList();
             return groceryList;
         }
     }
