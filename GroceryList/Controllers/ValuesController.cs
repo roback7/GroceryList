@@ -4,21 +4,20 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using GroceryList.Repository;
+using GroceryList.Models;
 
 namespace GroceryList.Controllers
 {
     public class ValuesController : ApiController
     {
-        // GET api/values
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
         // GET api/values/5
-        public string Get(int id)
+        public GList Get(int id)
         {
-            return "value";
+            GList list = new GList();
+            Repository.Repository r = new Repository.Repository();
+            list = r.getList(id);
+            return list;
         }
 
         // POST api/values
