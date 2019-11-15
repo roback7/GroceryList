@@ -11,7 +11,7 @@ using GroceryList.Controllers;
 namespace GroceryList.Tests.Controllers
 {
     [TestClass]
-    public class ValuesControllerTest
+    public class ListControllerTest
     {
         [TestMethod]
         public void Get()

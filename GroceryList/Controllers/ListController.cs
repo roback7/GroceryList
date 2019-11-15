@@ -11,41 +11,93 @@ namespace GroceryList.Controllers
 {
     public class ListController : ApiController
     {
-        // GET api/list/5
-        public GList Get(int id)
+        /// <summary>
+        /// Retrieves grocery list for the given Customer ID.
+        /// </summary>
+        /// <param name="id">Customer ID</param>
+        /// <returns>Grocery List</returns>
+        public IHttpActionResult Get(int id)
         {
             GList list = new GList();
             Repository.Repository r = new Repository.Repository();
-            list = r.getList(id);
-            return list;
+            try
+            {
+                list = r.getList(id);
+            }
+            catch (Exception e) {
+                return BadRequest(e.ToString());
+            }
+            return Ok(list);
         }
 
-        public Dictionary<int, string> Get() {
+        /// <summary>
+        /// Retrieves all Customers and their Customer ID.
+        /// </summary>
+        /// <returns>Customers with their Customer IDs.</returns>
+        public IHttpActionResult Get() {
             Dictionary<int, string> customers = new Dictionary<int, string>();
             Repository.Repository r = new Repository.Repository();
-            customers = r.getCustomers();
-            return customers;
+            try
+            {
+                customers = r.getCustomers();
+            }
+            catch (Exception e) {
+                return BadRequest(e.ToString());
+            }
+
+            return Ok(customers);
         }
 
-        // PUT api/list/5
-        public void Put(int id, string item)
+        /// <summary>
+        /// Places an item in a customers grocery list.
+        /// </summary>
+        /// <param name="id">Customer ID</param>
+        /// <param name="item">Item</param>
+        public IHttpActionResult Put(int id, string item)
         {
             Repository.Repository r = new Repository.Repository();
-            r.addItem(id, item);
+            try
+            {
+                r.addItem(id, item);
+            } catch (Exception e) {
+                return BadRequest(e.ToString());
+            }
+            return Ok();
         }
 
-        // POST api/list
-        public void Post(int id, string name)
+        /// <summary>
+        /// Adds a new customer to the database.
+        /// </summary>
+        /// <param name="id">Customer ID</param>
+        /// <param name="name">Customer Name</param>
+        /// <returns></returns>
+        public IHttpActionResult Post(int id, string name)
         {
             Repository.Repository r = new Repository.Repository();
-            r.addCustomer(id, name);
+            try
+            {
+                r.addCustomer(id, name);
+            } catch (Exception e) {
+                return BadRequest(e.ToString());
+            }
+            return Ok();
         }
 
-        // DELETE api/list/5
-        public void Delete(int id, string item)
+        /// <summary>
+        /// Deletes an item from a Customer's grocery list.
+        /// </summary>
+        /// <param name="id">Customer ID</param>
+        /// <param name="item">Item</param>
+        /// <returns></returns>
+        public IHttpActionResult Delete(int id, string item)
         {
             Repository.Repository r = new Repository.Repository();
-            r.deleteItem(id, item);
+            try {
+                r.deleteItem(id, item);
+            } catch (Exception e) {
+                return BadRequest(e.ToString());
+            }
+            return Ok();
         }
     }
 }
