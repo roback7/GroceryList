@@ -13,9 +13,9 @@ IIS Express must be installed. Can be downloaded from "https://www.microsoft.com
 
 Next, open cmd, and navigate to the directory containing IIS Express. (Ex "C:\Program Files (x86)\IIS Express")
 
-Run command: > iisexpress /path:PATH_TO_PUBLISH /port:9090
+Run command: > iisexpress /path:PATH_TO_PUBLISHED /port:9090
 
-Where PATH_TO_PUBLISH is the path to the publish folder in GroceryList (Ex "C:\Users\ksrob\Desktop\PUBLISH\")
+Where PATH_TO_PUBLISHED is the path to the PUBLISHED folder in GroceryList (Ex "C:\Users\ksrob\Desktop\PUBLISHED\")
 
 Next to access API, open an internet browser and navigate to "http://localhost:9090/"
 
