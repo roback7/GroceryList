@@ -27,6 +27,11 @@ namespace GroceryList.Controllers
             catch (Exception e) {
                 return BadRequest(e.ToString());
             }
+
+            //No Content
+            if (list.groceryList.Count < 1) {
+                return Ok();
+            }
             return Ok(list);
         }
 
@@ -43,6 +48,11 @@ namespace GroceryList.Controllers
             }
             catch (Exception e) {
                 return BadRequest(e.ToString());
+            }
+            //No Content
+            if (customers.Count < 1)
+            {
+                return Ok();
             }
 
             return Ok(customers);
