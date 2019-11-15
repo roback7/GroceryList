@@ -14,6 +14,11 @@ namespace GroceryList.Repository
     {
         public Repository() { }
 
+        /// <summary>
+        /// Retrieve grocery list for the given customer from database.
+        /// </summary>
+        /// <param name="customerID">Customer ID</param>
+        /// <returns>GList</returns>
         public GList getList(int customerID) {
             GList list = new GList();
             list.groceryList = new List<string>();
@@ -45,6 +50,10 @@ namespace GroceryList.Repository
             return list;
         }
 
+        /// <summary>
+        /// Retrieve a dictionary pairing each customer with their customer ID.
+        /// </summary>
+        /// <returns>Dictionary(int, string)</returns>
         public Dictionary<int, string> getCustomers()
         {
             Dictionary<int, string> customers = new Dictionary<int, string>();
@@ -72,6 +81,11 @@ namespace GroceryList.Repository
             return customers;
         }
 
+        /// <summary>
+        /// Adds a grocery item to the given customer's list.
+        /// </summary>
+        /// <param name="customerID">Customer ID</param>
+        /// <param name="item">Item</param>
         public void addItem(int customerID, string item) {
 
             SQLiteConnection connection = new SQLiteConnection(ConfigurationManager.ConnectionStrings["database"].ConnectionString);
@@ -91,6 +105,11 @@ namespace GroceryList.Repository
             connection.Close();
         }
 
+        /// <summary>
+        /// Deletes an item from the given customer's list.
+        /// </summary>
+        /// <param name="customerID">Customer ID</param>
+        /// <param name="item">List</param>
         public void deleteItem(int customerID, string item)
         {
 
@@ -111,6 +130,11 @@ namespace GroceryList.Repository
             connection.Close();
         }
 
+        /// <summary>
+        /// Adds a customer to the database.
+        /// </summary>
+        /// <param name="customerID">Customer ID</param>
+        /// <param name="name">Customer Name</param>
         public void addCustomer(int customerID, string name) {
             SQLiteConnection connection = new SQLiteConnection(ConfigurationManager.ConnectionStrings["database"].ConnectionString);
             connection.Open();
