@@ -20,6 +20,13 @@ namespace GroceryList.Controllers
             return list;
         }
 
+        public Dictionary<int, string> Get() {
+            Dictionary<int, string> customers = new Dictionary<int, string>();
+            Repository.Repository r = new Repository.Repository();
+            customers = r.getCustomers();
+            return customers;
+        }
+
         // PUT api/list/5
         public void Put(int id, string item)
         {
@@ -35,8 +42,10 @@ namespace GroceryList.Controllers
         }
 
         // DELETE api/list/5
-        public void Delete(int id)
+        public void Delete(int id, string item)
         {
+            Repository.Repository r = new Repository.Repository();
+            r.deleteItem(id, item);
         }
     }
 }
