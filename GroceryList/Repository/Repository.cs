@@ -16,8 +16,8 @@ namespace GroceryList.Repository
         public Repository() { }
 
         public GList getList(int customerID) {
-            GList groceryList = new GList();
-            groceryList.groceryList = new List<string>();
+            GList list = new GList();
+            list.groceryList = new List<string>();
 
             SQLiteConnection connection = new SQLiteConnection(ConfigurationManager.ConnectionStrings["database"].ConnectionString);
             connection.Open();
@@ -36,19 +36,35 @@ namespace GroceryList.Repository
 
                 foreach (DataRow row in dt.Rows)
                 {
-                    groceryList.groceryList.Add(Convert.ToString(row["ITEM"]));
-                    groceryList.customerName = Convert.ToString(row["NAME"]);
+                    list.groceryList.Add(Convert.ToString(row["ITEM"]));
+                    list.customerName = Convert.ToString(row["NAME"]);
                 }
 
                 read.Close();
             }
-            groceryList.customerID = customerID;
-            return groceryList;
+            list.customerID = customerID;
+            return list;
         }
 
-        public GList addItem(int customerID, string item) {
-            GList groceryList = new GList();
-            return groceryList;
+        public void addItem(int customerID, string item) {
+
+            SQLiteConnection connection = new SQLiteConnection(ConfigurationManager.ConnectionStrings["database"].ConnectionString);
+            connection.Open();
+
+            SQLiteCommand cmd = new SQLiteCommand();
+            cmd.Connection = connection;
+
+            cmd.Parameters.Add("customerID", DbType.Int32);
+            cmd.Parameters.Add("item", DbType.String);
+            cmd.Parameters["customerID"].Value = customerID;
+            cmd.Parameters["item"].Value = item;
+            cmd.CommandText = "INSERT INTO LIST VALUES(@item, @customerID)";
+
+            SQLiteDataReader read = cmd.ExecuteReader();
+            read.Close();
+            connection.Close();
         }
+
+        public void 
     }
 }

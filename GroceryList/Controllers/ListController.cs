@@ -9,9 +9,9 @@ using GroceryList.Models;
 
 namespace GroceryList.Controllers
 {
-    public class ValuesController : ApiController
+    public class ListController : ApiController
     {
-        // GET api/values/5
+        // GET api/list/5
         public GList Get(int id)
         {
             GList list = new GList();
@@ -20,17 +20,20 @@ namespace GroceryList.Controllers
             return list;
         }
 
-        // POST api/values
-        public void Post([FromBody]string value)
+        // PUT api/list/5
+        public void Put(int id, string item)
+        {
+            Repository.Repository r = new Repository.Repository();
+            r.addItem(id, item);
+
+        }
+
+        // POST api/list/5
+        public void Post(int id, [FromBody]string value)
         {
         }
 
-        // PUT api/values/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
+        // DELETE api/list/5
         public void Delete(int id)
         {
         }
